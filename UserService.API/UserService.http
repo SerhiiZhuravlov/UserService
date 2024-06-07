@@ -1,0 +1,6 @@
+@UserService_HostAddress = https://localhost:32776
+
+GET {{UserService_HostAddress}}/user/1
+Accept: application/json
+
+###

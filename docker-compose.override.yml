@@ -1,0 +1,28 @@
+version: '3.4'
+
+
+services:
+  userservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081    
+      - ConnectionStrings__UserDbConnection=Server=db;Database=user;User=sa;Password=Your_password123;TrustServerCertificate=True;
+    ports:
+      - "8080"
+      - "8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+      - db
+    container_name: userservice-api
+  db:
+    image: "mcr.microsoft.com/mssql/server"
+    restart: unless-stopped
+    environment:
+        SA_PASSWORD: "Your_password123"
+        ACCEPT_EULA: "Y"
+    ports:
+        - "1433:1433"
+    container_name: userservice-db
