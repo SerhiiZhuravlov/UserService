@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}userservice
     build:
       context: .
-      dockerfile: UserService.API/Dockerfile
+      dockerfile: src/UserService.API/Dockerfile
